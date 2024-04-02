@@ -7,7 +7,7 @@ export const AreaOne = () => {
 
   const onChange = (checked) => {
     console.log(`switch to ${checked}`);
-    socket.emit("control", checked ? "ON" : "OFF");
+    socket.emit("control", status ? "ON" : "OFF");
     setStatus(!status);
   };
 

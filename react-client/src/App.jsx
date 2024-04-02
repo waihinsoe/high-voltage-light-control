@@ -1,41 +1,31 @@
 import "./App.css";
-import { HomePage } from "./pages/Home";
 import socket from "./socket/socket";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Flex, Switch, Typography } from "antd";
+import Title from "antd/es/typography/Title";
 function App() {
-  // useEffect(() => {
-  //   // Request notification permission on component mount
-  //   if (Notification.permission !== "granted") {
-  //     Notification.requestPermission();
-  //   }
+  const [status, setStatus] = useState(false);
 
-  //   socket.on("receive-notification", (message) => {
-  //     showNotification(message);
-  //   });
-
-  //   return () => {
-  //     socket.off("receive-notification");
-  //   };
-  // }, []);
-
-  // const showNotification = (message) => {
-  //   // Check if notification permission is granted
-
-  //   if (Notification.permission === "granted") {
-  //     console.log("noti");
-  //     new Notification("You have a new message!", {
-  //       body: message,
-  //       // icon: "/path/to/icon.png", // optional
-  //     });
-  //     // Note: The system's default notification sound will play (if any) based on user's OS and browser settings
-  //   } else {
-  //     console.log("Notification permission is not granted.");
-  //   }
-  // };
+  const onChange = (checked) => {
+    console.log(`switch to ${checked}`);
+    socket.emit("control", status ? "ON" : "OFF");
+    setStatus(!status);
+  };
 
   return (
     <div>
-      <HomePage />
+      <Flex
+        justify="center"
+        vertical
+        align="center"
+        gap={20}
+        style={{ height: "100vh" }}
+      >
+        <Title level={2}>N1C AI SMART HOME</Title>
+        <Typography>MOTOR AND LIGHT CONTROL</Typography>
+        <Switch checked={status} onChange={onChange} />
+      </Flex>
+      {/* <HomePage /> */}
     </div>
   );
 }

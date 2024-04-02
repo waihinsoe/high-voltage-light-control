@@ -48,10 +48,15 @@ io.on("connection", (socket) => {
   console.log("New client connected!");
 
   socket.on("control", (msg) => {
-    console.log(`Control message received : ${msg}`);
-    mqttClient.publish("test/topic", msg);
+    if (msg === "ON") {
+      console.log(`Control message received : ${msg}`);
+      mqttClient.publish("test/topic", "ON");
+    } else if (msg === "OFF") {
+      console.log(`Control message received : ${msg}`);
+      mqttClient.publish("test/topic", "OFF");
+    }
 
-    io.sockets.emit("control", msg);
+    // io.sockets.emit("control", msg);
   });
 
   // setInterval(() => {
