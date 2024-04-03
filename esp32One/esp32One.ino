@@ -23,7 +23,7 @@ void setup() {
   Serial.begin(115200);
 
     pinMode(LED_PIN, OUTPUT); // declare the ledPin as an OUTPUT
-    digitalWrite(LED_PIN,LOW);
+    digitalWrite(LED_PIN,HIGH);
     // pinMode(MOTION_SENSOR_PIN, INPUT);
     setup_wifi();
 
@@ -91,15 +91,14 @@ void callback(char* topic, byte* payload, unsigned int length) {
 
   if(topicStr == "test/topic") {
     if (message == "ON") {
-        digitalWrite(LED_PIN, HIGH); // Turn the LED on
-        Serial.println("LED turned ON");
+        digitalWrite(LED_PIN, LOW); // Turn the LED on
+        Serial.println("relay current is flowing");
       } else if (message == "OFF") {
-        digitalWrite(LED_PIN, LOW); // Turn the LED off
-        Serial.println("LED turned OFF");
+        digitalWrite(LED_PIN, HIGH); // Turn the LED off
+        Serial.println("relay current isn't flowing");
       }
   }
 
-  
   Serial.println();
 }
 
@@ -112,6 +111,7 @@ void reconnect() {
       Serial.println("connected");
       // Once connected, publish an announcement...
       client.publish("esp32One", "hello from esp32One");
+      // client.publish("test/topic", "OFF");
       // ... and resubscribe
       client.subscribe("esp32One");
       client.subscribe("test/topic");
