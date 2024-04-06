@@ -14,6 +14,8 @@ export const AreaOne = () => {
   return (
     <Flex justify="center" vertical align="center" gap={20}>
       <Typography>LIGHT CONTROL</Typography>
+      <Typography>LIGHT CONTROL</Typography>
+
       <Switch checked={status} onChange={onChange} />
     </Flex>
   );
